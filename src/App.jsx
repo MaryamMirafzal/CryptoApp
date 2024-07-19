@@ -1,5 +1,7 @@
+import HomPage from "./Components/templates/HomPage";
+
 function App() {
-  return <h1>Crypto App</h1>;
+  return <HomPage />;
 }
 
 export default App;
