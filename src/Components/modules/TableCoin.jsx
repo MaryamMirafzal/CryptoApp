@@ -1,10 +1,12 @@
 import ChartUp from "../../assets/chart-up.svg"
 import ChartDown from "../../assets/chart-down.svg"
+import {RotatingLines} from "react-loader-spinner"
 
-
-function TableCoin({coins}) {
+function TableCoin({coins, isLoading}) {
   console.log(coins);
-  return (
+  return (<div>
+    { 
+      isLoading ? (<RotatingLines strokeColor="blue" strokeWidth="2"/>):(
     <div>
       <table>
         <thead>
@@ -20,24 +22,34 @@ function TableCoin({coins}) {
         <tbody>
           {
             // eslint-disable-next-line react/jsx-key
-            coins.map((coin)=> <tr>
-              <td>
-              <div>
-                <img src={coin.image} alt="" />
-                <span>{coin.symbol.toUpperCase()}</span>
-              </div>
-              </td>
-              <td>{coin.name}</td>
-              <td>${coin.current_price.toLocaleString()}</td>
-              <td>{coin.price_change_percentage_24h.toFixed(2)}%</td>
-              <td>{coin.total_volume.toLocaleString()}</td>
-              <td><img src={coin.price_change_percentage_24h > 0 ? ChartUp:ChartDown} alt={coin.name} /></td>
-            </tr>)
+            coins.map((coin)=> <TableRow coin={coin} key={coin.id}/>)
           }
         </tbody>
       </table>
     </div>
+      )
+    }</div>
+    
   )
 }
 
 export default TableCoin
+
+
+const TableRow = ({coin:{symbol,image,name,current_price,total_volume, price_change_percentage_24h:price_change}})=>{
+  return(
+    <tr>
+      <td>
+      <div>
+        <img src={image} alt="" />
+        <span>{symbol.toUpperCase()}</span>
+      </div>
+      </td>
+      <td>{name}</td>
+      <td>${current_price.toLocaleString()}</td>
+      <td>{price_change.toFixed(2)}%</td>
+      <td>{total_volume.toLocaleString()}</td>
+      <td><img src={price_change > 0 ? ChartUp:ChartDown} alt={name} /></td>
+    </tr>
+  )
+}
