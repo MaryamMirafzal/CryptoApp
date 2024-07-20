@@ -11,6 +11,7 @@ function HomPage() {
       const json = await res.json();
       setCoins(json)
     }
+    getData();
     },[])
 
 
