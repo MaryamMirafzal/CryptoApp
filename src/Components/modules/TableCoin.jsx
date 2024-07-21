@@ -8,7 +8,7 @@ function TableCoin({coins, isLoading}) {
   console.log(coins);
   return (<div className={styles.container}>
     { 
-      isLoading ? (<RotatingLines strokeColor="blue" strokeWidth="2"/>):(
+      isLoading ? (<RotatingLines strokeColor="blue" strokeWidth="2" />):(
     <div>
       <table className={styles.table}>
         <thead>
