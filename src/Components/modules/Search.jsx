@@ -1,6 +1,8 @@
-import { Children, useEffect, useState } from "react"
+import {  useEffect, useState } from "react"
 import { searchCoin } from "../../Services/cryptoApi"
 import { RotatingLines } from "react-loader-spinner"
+
+import styles from "./Search.module.css"
 
 function Search({currency , setCurrency}) {
     const [ text , setText ] = useState("")
@@ -39,15 +41,22 @@ function Search({currency , setCurrency}) {
         return() => controller.abort()
     },[text])
   return (
-    <div>
+    <div className={styles.searchBox}>
         <input type="text" placeholder="Search"value={text} onChange={e => setText(e.target.value)} />
         <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
             <option value="usd">USD</option>
             <option value="eur">EUR</option>
             <option value="jpy">JPY</option>
         </select>
-        <div>
-            { isLoading && <RotatingLines width="50px" height="50px" strokeColor="#3874ff" strokeWidth="2"/>}
+        {
+            (!!coins.length || isLoading) &&(
+                <div className={styles.searchResult}>
+            { isLoading && 
+            <RotatingLines 
+            width="50px" 
+            height="50px" 
+            strokeColor="#3874ff" 
+            strokeWidth="2"/>}
             <ul>
                 {coins.map( (coin) =>(<li key={coin.key}>
                     <img src={coin.thumb} alt={coin.name} />
@@ -55,6 +64,8 @@ function Search({currency , setCurrency}) {
                 </li>))}
             </ul>
         </div>
+            )
+        }
     </div>
   )
 }
