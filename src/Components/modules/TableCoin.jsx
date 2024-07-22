@@ -4,7 +4,7 @@ import {RotatingLines} from "react-loader-spinner"
 
 import styles from "./TableCoin.module.css"
 
-function TableCoin({coins, isLoading}) {
+function TableCoin({coins, isLoading , setChart}) {
   console.log(coins);
   return (<div className={styles.container}>
     { 
@@ -24,7 +24,7 @@ function TableCoin({coins, isLoading}) {
         <tbody>
           {
             // eslint-disable-next-line react/jsx-key
-            coins.map((coin)=> <TableRow coin={coin} key={coin.id}/>)
+            coins.map((coin)=> <TableRow coin={coin} key={coin.id} setChart={setChart}/>)
           }
         </tbody>
       </table>
@@ -38,11 +38,14 @@ function TableCoin({coins, isLoading}) {
 export default TableCoin
 
 
-const TableRow = ({coin:{symbol,image,name,current_price,total_volume, price_change_percentage_24h:price_change}})=>{
+const TableRow = ({coin:{symbol,image,name,current_price,total_volume, price_change_percentage_24h:price_change}, setChart})=>{
+  const showHandler = ()=>{
+    setChart(true)
+  }
   return(
     <tr>
       <td>
-      <div className={styles.symbol}> 
+      <div className={styles.symbol} onClick={showHandler}> 
         <img src={image} alt="" />
         <span>{symbol.toUpperCase()}</span>
       </div>
