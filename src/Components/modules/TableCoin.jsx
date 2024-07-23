@@ -3,9 +3,10 @@ import ChartDown from "../../assets/chart-down.svg"
 import {RotatingLines} from "react-loader-spinner"
 
 import styles from "./TableCoin.module.css"
+import { marcketChart } from "../../Services/cryptoApi";
 
 function TableCoin({coins, isLoading , setChart}) {
-  console.log(coins);
+  // console.log(coins);
   return (<div className={styles.container}>
     { 
       isLoading ? (<RotatingLines strokeColor="blue" strokeWidth="2" />):(
@@ -38,9 +39,15 @@ function TableCoin({coins, isLoading , setChart}) {
 export default TableCoin
 
 
-const TableRow = ({coin:{symbol,image,name,current_price,total_volume, price_change_percentage_24h:price_change}, setChart})=>{
-  const showHandler = ()=>{
-    setChart(true)
+const TableRow = ({coin:{id,symbol,image,name,current_price,total_volume, price_change_percentage_24h:price_change}, setChart})=>{
+  const showHandler = async ()=>{
+    try {
+      const res = await fetch(marcketChart(id))
+      const json = await res.json()
+      setChart(json)
+    } catch (error) {
+      setChart(null)
+    }
   }
   return(
     <tr>

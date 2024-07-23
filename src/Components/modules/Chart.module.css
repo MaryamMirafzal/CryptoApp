@@ -37,3 +37,8 @@
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
 }
+.graph{
+    width: 750px;
+    height: 400px;
+    margin-left: 10px;
+}
