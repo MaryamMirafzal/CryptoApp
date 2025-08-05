@@ -12,6 +12,7 @@ function HomPage() {
   const [ isLoading , setIsLoading ] = useState(true)
   const [currency , setCurrency ] = useState("usd")
   const [ chart , setChart ] = useState(null)
+  
   useEffect(()=>{
     const getData = async ()=>{
       try {
